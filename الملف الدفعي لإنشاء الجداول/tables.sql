@@ -1,0 +1,487 @@
+--
+-- Create Schema Script
+--   Database Version            : 12.1.0.1.0
+--   Database Compatible Level   : 12.1.0.0.0
+--   Script Compatible Level     : 12.1.0.0.0
+--   Toad Version                : 12.11.0.95
+--   DB Connect String           : ORCL
+--   Schema                      : SARAHHW
+--   Script Created by           : SARAHHW
+--   Script Created at           : 12/30/2021 2:12:55 AM
+--   Notes                       : 
+--
+
+-- Object Counts: 
+--   Tables: 10         Columns: 54         Constraints: 37     
+
+
+
+--
+-- COMPENSATION  (Table) 
+--
+CREATE TABLE SARAHHW.COMPENSATION
+(
+  COMPEN_ID     NUMBER(9)                       NOT NULL,
+  COMPEN_NAME   VARCHAR2(50 BYTE),
+  PERCENT_CASH  CHAR(1 CHAR),
+  IN_TAX        CHAR(1 CHAR)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- DISCOUNT  (Table) 
+--
+CREATE TABLE SARAHHW.DISCOUNT
+(
+  DISC_ID       NUMBER(9)                       NOT NULL,
+  DISC_NAME     VARCHAR2(50 CHAR),
+  PERCENT_CASH  CHAR(1 CHAR),
+  IN_TAX        CHAR(1 CHAR)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- EMPLOYEE  (Table) 
+--
+CREATE TABLE SARAHHW.EMPLOYEE
+(
+  EMP_ID       NUMBER(9)                        NOT NULL,
+  FIRST_NAME   VARCHAR2(15 BYTE),
+  LAST_NAME    VARCHAR2(15 BYTE),
+  INITIAL_SAL  NUMBER(10)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- EMP_COMPEN  (Table) 
+--
+CREATE TABLE SARAHHW.EMP_COMPEN
+(
+  COMPEN_VALUE            NUMBER(8,2),
+  EMPLOYEE_EMP_ID         NUMBER(9)             NOT NULL,
+  COMPENSATION_COMPEN_ID  NUMBER(9)             NOT NULL,
+  COMPEN_DATE             DATE                  NOT NULL,
+  IN_MONTH                NUMBER(3)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- EMP_DISCOUNT  (Table) 
+--
+CREATE TABLE SARAHHW.EMP_DISCOUNT
+(
+  DISC_VALUE        NUMBER(8,2),
+  EMPLOYEE_EMP_ID   NUMBER(9)                   NOT NULL,
+  DISCOUNT_DISC_ID  NUMBER(9)                   NOT NULL,
+  DISC_DATE         DATE                        NOT NULL,
+  IN_MONTH          NUMBER(3)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- PAYROLL  (Table) 
+--
+CREATE TABLE SARAHHW.PAYROLL
+(
+  EMP_ID            NUMBER(9),
+  FAMILY            NUMBER(8)                   DEFAULT 0,
+  FOOD              NUMBER(8)                   DEFAULT 0,
+  HOUSING           NUMBER(4,2)                 DEFAULT 0,
+  WORK_NATURE       NUMBER(4,2)                 DEFAULT 0,
+  SOCIAL_INSURANCE  NUMBER(4,2)                 DEFAULT 0,
+  INSTALLMENT       NUMBER(8)                   DEFAULT 0,
+  PUNISHMENT        NUMBER(8)                   DEFAULT 0,
+  REWARD            NUMBER(8)                   DEFAULT 0,
+  TOTAL_ABSENCE     NUMBER(2)                   DEFAULT 0,
+  TAX               NUMBER(9)                   DEFAULT 0,
+  INITIAL_SAL       NUMBER(10),
+  FINAL_SAL         NUMBER(11),
+  SAL_DATE          DATE,
+  IS_DONE           CHAR(1 BYTE)                DEFAULT 0
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- PUNISHMENT  (Table) 
+--
+CREATE TABLE SARAHHW.PUNISHMENT
+(
+  PUNISH_ID        NUMBER(9),
+  EMPLOYEE_EMP_ID  NUMBER(9),
+  VALUE_IN_MONTH   NUMBER(9),
+  PUNISH_DATE      DATE,
+  FOR_N_MONTHS     NUMBER(2)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- REWARD  (Table) 
+--
+CREATE TABLE SARAHHW.REWARD
+(
+  REWARD_ID        NUMBER(9),
+  EMPLOYEE_EMP_ID  NUMBER(9),
+  VALUE_IN_MONTH   NUMBER(9),
+  REWARD_DATE      DATE,
+  FOR_N_MONTHS     NUMBER(2)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- SAL_SLICE  (Table) 
+--
+CREATE TABLE SARAHHW.SAL_SLICE
+(
+  SLICE_ID  NUMBER(9),
+  FROM_SAL  NUMBER(15),
+  TO_SAL    NUMBER(15),
+  PERCENT   NUMBER(3)
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+--
+-- ABSENCE  (Table) 
+--
+CREATE TABLE SARAHHW.ABSENCE
+(
+  ABSEN_DATE       DATE                         NOT NULL,
+  PERIOD_DAYS      NUMBER(2),
+  EMPLOYEE_EMP_ID  NUMBER(9)                    NOT NULL
+)
+TABLESPACE USERS
+PCTUSED    0
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            NEXT             1M
+            MINEXTENTS       1
+            MAXEXTENTS       UNLIMITED
+            PCTINCREASE      0
+            BUFFER_POOL      DEFAULT
+           );
+
+
+-- 
+-- Non Foreign Key Constraints for Table COMPENSATION 
+-- 
+ALTER TABLE SARAHHW.COMPENSATION ADD (
+  CHECK ( in_tax in (0,1))
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.COMPENSATION ADD (
+  CHECK (PERCENT_CASH in(0,1))
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.COMPENSATION ADD (
+  CONSTRAINT COMPENSATION_PK
+  PRIMARY KEY
+  (COMPEN_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table DISCOUNT 
+-- 
+ALTER TABLE SARAHHW.DISCOUNT ADD (
+  CHECK (percent_cash in (0,1))
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.DISCOUNT ADD (
+  CHECK (in_tax in (0,1))
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.DISCOUNT ADD (
+  CONSTRAINT DISCOUNT_PK
+  PRIMARY KEY
+  (DISC_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table EMPLOYEE 
+-- 
+ALTER TABLE SARAHHW.EMPLOYEE ADD (
+  CONSTRAINT EMPLOYEE_PK
+  PRIMARY KEY
+  (EMP_ID)
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.EMPLOYEE ADD (
+  CONSTRAINT EMPLOYEE_NAME_UK
+  UNIQUE (FIRST_NAME, LAST_NAME)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table EMP_COMPEN 
+-- 
+ALTER TABLE SARAHHW.EMP_COMPEN ADD (
+  CONSTRAINT EMP_COMPEN_PK
+  PRIMARY KEY
+  (EMPLOYEE_EMP_ID, COMPENSATION_COMPEN_ID, IN_MONTH)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table EMP_DISCOUNT 
+-- 
+ALTER TABLE SARAHHW.EMP_DISCOUNT ADD (
+  CONSTRAINT EMP_DISCOUNT_PK
+  PRIMARY KEY
+  (EMPLOYEE_EMP_ID, DISCOUNT_DISC_ID, IN_MONTH)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table PAYROLL 
+-- 
+ALTER TABLE SARAHHW.PAYROLL ADD (
+  CHECK (is_done in(0,1))
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.PAYROLL ADD (
+  CONSTRAINT PAYROLL_EMP_PK
+  PRIMARY KEY
+  (EMP_ID, SAL_DATE)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table PUNISHMENT 
+-- 
+ALTER TABLE SARAHHW.PUNISHMENT ADD (
+  CONSTRAINT PUNISHMENT_PK
+  PRIMARY KEY
+  (PUNISH_ID)
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.PUNISHMENT ADD (
+  CONSTRAINT PUNISH_UK
+  UNIQUE (EMPLOYEE_EMP_ID, PUNISH_DATE, FOR_N_MONTHS)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table REWARD 
+-- 
+ALTER TABLE SARAHHW.REWARD ADD (
+  CONSTRAINT REWARD_PK
+  PRIMARY KEY
+  (REWARD_ID)
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.REWARD ADD (
+  CONSTRAINT REWARD_UK
+  UNIQUE (FOR_N_MONTHS, REWARD_DATE, EMPLOYEE_EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table SAL_SLICE 
+-- 
+ALTER TABLE SARAHHW.SAL_SLICE ADD (
+  CONSTRAINT SAL_SLICE_PK
+  PRIMARY KEY
+  (SLICE_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Non Foreign Key Constraints for Table ABSENCE 
+-- 
+ALTER TABLE SARAHHW.ABSENCE ADD (
+  CONSTRAINT ABSENCE_PK
+  PRIMARY KEY
+  (ABSEN_DATE, EMPLOYEE_EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table EMP_COMPEN 
+-- 
+ALTER TABLE SARAHHW.EMP_COMPEN ADD (
+  CONSTRAINT EMP_COMPEN_COMPENSATION_FK 
+  FOREIGN KEY (COMPENSATION_COMPEN_ID) 
+  REFERENCES SARAHHW.COMPENSATION (COMPEN_ID)
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.EMP_COMPEN ADD (
+  CONSTRAINT EMP_COMPEN_EMPLOYEE_FK 
+  FOREIGN KEY (EMPLOYEE_EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table EMP_DISCOUNT 
+-- 
+ALTER TABLE SARAHHW.EMP_DISCOUNT ADD (
+  CONSTRAINT EMP_DISCOUNT_DISCOUNT_FK 
+  FOREIGN KEY (DISCOUNT_DISC_ID) 
+  REFERENCES SARAHHW.DISCOUNT (DISC_ID)
+  ENABLE VALIDATE);
+
+ALTER TABLE SARAHHW.EMP_DISCOUNT ADD (
+  CONSTRAINT EMP_DISCOUNT_EMPLOYEE_FK 
+  FOREIGN KEY (EMPLOYEE_EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table PAYROLL 
+-- 
+ALTER TABLE SARAHHW.PAYROLL ADD (
+  CONSTRAINT EMP_ID_FK 
+  FOREIGN KEY (EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table PUNISHMENT 
+-- 
+ALTER TABLE SARAHHW.PUNISHMENT ADD (
+  CONSTRAINT PUNISHMENT_EMPLOYEE_FK 
+  FOREIGN KEY (EMPLOYEE_EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table REWARD 
+-- 
+ALTER TABLE SARAHHW.REWARD ADD (
+  CONSTRAINT REWARD_EMPLOYEE_FK 
+  FOREIGN KEY (EMPLOYEE_EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
+
+
+-- 
+-- Foreign Key Constraints for Table ABSENCE 
+-- 
+ALTER TABLE SARAHHW.ABSENCE ADD (
+  CONSTRAINT ABSENCE_EMPLOYEE_FK 
+  FOREIGN KEY (EMPLOYEE_EMP_ID) 
+  REFERENCES SARAHHW.EMPLOYEE (EMP_ID)
+  ENABLE VALIDATE);
